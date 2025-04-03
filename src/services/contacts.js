@@ -1,5 +1,4 @@
 import createHttpError from 'http-errors';
-
 import { SORT_ORDER } from '../constants/index.js';
 import { ContactsCollection } from '../db/models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
@@ -61,15 +60,20 @@ export const updateContact = async (contactId, payload, userId) => {
   const updatedContact = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
     payload,
-    { new: true, includeResultMetadata: true },
+    { new: true, runValidators: true },
   );
 
   return updatedContact;
 };
 
-export const deleteContact = (contactId, userId) => {
-  return ContactsCollection.findOneAndDelete({
-    _id: contactId,
-    userId,
-  });
+export const deleteContact = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOne({ _id: contactId, userId });
+
+  if (!contact) {
+    throw createHttpError(404, 'Contact not found');
+  }
+
+  await contact.remove();
+
+  return contact;
 };
