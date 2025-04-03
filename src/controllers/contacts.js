@@ -60,6 +60,7 @@ export const createContactController = async (req, res) => {
   });
 };
 
+
 export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
@@ -71,9 +72,10 @@ export const patchContactController = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: updatedContact.value,
+    data: updatedContact,
   });
 };
+
 
 export const deleteContactController = async (req, res) => {
   const { contactId } = req.params;
