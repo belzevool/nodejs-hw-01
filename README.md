@@ -24,7 +24,7 @@ This Contact App provides a RESTful API for managing a contact list. Users can c
 The API is documented using Swagger. Once the server is running, access the Swagger UI at:
 
 ```
-https://nodejs-hw-02-azzk.onrender.comm/api-docs
+https://nodejs-hw-02-azzk.onrender.com/api-docs
 ```
 
 ### Available Endpoints
